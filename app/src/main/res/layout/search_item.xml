@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- 顶部描边 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/light_gray"/>
+
+    <!-- 原来的 item 主体区域 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_margin="6dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/black">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/videoImage"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"/>
+            <LinearLayout
+                android:id="@+id/secondRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/up" />
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="1dp"
+                    android:id="@+id/upName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"> <!-- 添加垂直居中 -->
+
+                <ImageView
+                    android:layout_marginStart="-7dp"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/searchresultmainsee" />
+
+                <TextView
+                    android:id="@+id/viewNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <ImageView
+            android:layout_gravity="bottom|end"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:src="@drawable/more2"/>
+    </LinearLayout>
+
+    <!-- 底部描边 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/light_gray"/>
+</LinearLayout>

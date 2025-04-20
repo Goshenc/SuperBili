@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+
+        >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_marginBottom="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/collectback" />
+
+    <EditText
+        android:layout_marginBottom="10dp"
+        android:id="@+id/etSearch"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:hint="番剧 / 影视 / UP主"
+        android:textColorHint="@color/gray_darker"
+        android:gravity="center_vertical"
+        android:drawableStart="@drawable/search2"
+        android:drawablePadding="10dp"
+        android:background="@drawable/searchbox_background"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="搜索"
+            android:textColor="@color/pink"
+            android:textSize="15sp"
+            android:layout_marginEnd="10dp"/>
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/searchbottom"/>
+
+</LinearLayout>

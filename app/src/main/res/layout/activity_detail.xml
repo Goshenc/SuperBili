@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:id="@+id/videoImage"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@drawable/border_row1"
+        android:outlineProvider="background"
+        android:clipToOutline="true">
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:text="简介"
+            android:textColor="@color/pink"
+            android:gravity="center"
+            android:layout_marginStart="30dp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:text="评论"
+            android:layout_marginStart="50dp"
+            android:textColor="@color/gray" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="38dp"
+            android:src="@drawable/detaildanmubox"
+        />
+    </LinearLayout>
+
+    <!-- 外层水平布局 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/avatar" />
+
+        <!-- 内部垂直布局 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="0dp"
+                android:layout_marginTop="1dp"
+                android:id="@+id/upName" />
+
+            <!-- 水平布局（粉丝数和视频数） -->
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp"
+android:layout_marginTop="3dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:id="@+id/fansNumber"
+                    android:padding="0dp"
+                    android:textSize="12sp"
+
+                    />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:id="@+id/videoNumber"
+                    android:padding="0dp"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+        </LinearLayout> <!-- 内部垂直布局闭合 -->
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/subscribe"
+            android:layout_marginEnd="10dp"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:backgroundTint="@color/pink"
+            android:padding="0dp"
+            android:text="+ 关注"
+            android:textColor="@color/white" />
+    </LinearLayout> <!-- 外层水平布局闭合 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="13dp">
+    <TextView
+        android:layout_marginStart="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:id="@+id/title"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    <ImageView
+        android:translationZ="1dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:src="@drawable/detaildown"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lastRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-20dp"
+        >
+<ImageView
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_marginBottom="1dp"
+    android:src="@drawable/searchresultmainsee"/>
+        <TextView
+            android:id="@+id/viewNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/gray"
+            android:gravity="center_vertical"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:layout_marginStart="5dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@drawable/maincomment"/>
+        <TextView
+            android:layout_marginStart="4dp"
+            android:id="@+id/danmuNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="12sp"/>
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:id="@+id/data"
+            android:textColor="@color/gray"
+            />
+        <TextView
+            android:layout_marginStart="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:id="@+id/time"/>
+        <ImageView
+            android:layout_marginStart="6dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/detailwatching"/>
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     >
+
+        <ImageView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivToggle"
+            android:src="@drawable/detailrowun"
+            android:layout_marginTop="-30dp"
+            />
+        <ImageView
+            android:translationZ="100dp"
+            android:id="@+id/collect"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="267dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/detailcollectun" />
+    </FrameLayout>
+
+</LinearLayout> <!-- 最外层垂直布局闭合 -->
