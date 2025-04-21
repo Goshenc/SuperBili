@@ -1,6 +1,5 @@
-package com.example.superbili
+package com.example.superbili.Activities
 
-import ThickUnderlineSpan
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -9,20 +8,9 @@ import android.graphics.Canvas
 import android.graphics.ColorFilter
 import android.graphics.Paint
 import android.graphics.PixelFormat
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextWatcher
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.text.style.UnderlineSpan
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
@@ -30,19 +18,22 @@ import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.superbili.R
+import com.example.superbili.Room.AppDatabase
+import com.example.superbili.Room.MyCollection
+import com.example.superbili.VideoAdapter
+import com.example.superbili.VideoItemDecoration
+import com.example.superbili.ViewpagerAdapter
 import com.example.superbili.databinding.ActivityMainBinding
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.search.SearchView
+import com.example.superbili.video
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -120,6 +111,13 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
+
+
+
+
+
+        setupDatabase()
         setupSearchView()  // Now works fine as it's a member function
 
 
@@ -213,14 +211,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         binding.navMine.setOnClickListener(){
-            val intent=Intent(this,MyActivity::class.java)
+            val intent=Intent(this, MyActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             launcher.launch(intent)
             overridePendingTransition(0, 0)
         }
 
 binding.search2.setOnClickListener(){
-    val intent=Intent(this,SearchActivity::class.java)
+    val intent=Intent(this, SearchActivity::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
     launcher.launch(intent)
 }
@@ -272,5 +270,19 @@ binding.search2.setOnClickListener(){
         }
     }
 
+    private fun setupDatabase() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(this@MainActivity)
+            val dao = db.collectionDao()
+
+            // Check if "默认收藏夹" exists and insert if not
+            val collectionId = dao.getCollectionIdByName("默认收藏夹")
+            if (collectionId == null) {
+                // Insert the "默认收藏夹" collection into the database
+                dao.createCollection(MyCollection(name = "默认收藏夹"))
+                Log.d("MainActivity", "Default collection inserted.")
+            }
+        }
+    }
 
 }

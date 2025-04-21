@@ -5,13 +5,13 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.superbili.Activities.DetailActivity
 import com.example.superbili.databinding.ItemBannerBinding
 
 import com.example.superbili.databinding.VideoItemBinding
@@ -34,61 +34,51 @@ class VideoAdapter(
 
         private val handler = Handler(Looper.getMainLooper())
         private var runnable: Runnable? = null
-        // 1. 记录真实页数、起始偏移
-        private val pageCount get() = bannerSize
         private var bannerSize = 0
+        private val pageCount get() = bannerSize
+
         private val startPos: Int
             get() {
-                // 把起始位置放在 Int.MAX_VALUE/2 上，并整除 pageCount
                 val half = Int.MAX_VALUE / 2
                 return half - (half % pageCount)
             }
 
         fun bind(bannerList: List<video>) {
-            // 2. 清理旧的自动滚动
             runnable?.let { handler.removeCallbacks(it) }
 
             bannerSize = bannerList.size
             val vp = binding.viewPager
             vp.adapter = ViewpagerAdapter(bannerList)
 
-            // 3. 一开始就跳到 “中间那份” 的第一张，关闭动画
             vp.setCurrentItem(startPos, false)
 
-            // 4. 小圆点
+            // 1. 添加小圆点
             addPoints(bannerSize)
+            // 2. 设置初始状态的小圆点
             changePoints(0)
 
-            // 5. 分两步注册：PageSelected 用于圆点；ScrollState 用于边界检测
             vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    // 真正的下标
                     val real = position % bannerSize
+                    // 更新小圆点
                     changePoints(real)
                 }
+
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
                     if (state == ViewPager2.SCROLL_STATE_IDLE) {
                         val curr = vp.currentItem
                         val real = curr % bannerSize
                         when (real) {
-                            0 -> {
-                                // 看到第 0 张（第一张） → 无动画跳到中间那轮的第 0 张
-                                vp.setCurrentItem(startPos, false)
-                            }
-                            bannerSize - 1 -> {
-                                // 看到最后一张 → 无动画跳到中间那轮的最后一张
-                                vp.setCurrentItem(startPos + (bannerSize - 1), false)
-                            }
+                            0 -> vp.setCurrentItem(startPos, false)
+                            bannerSize - 1 -> vp.setCurrentItem(startPos + (bannerSize - 1), false)
                         }
                     }
                 }
             })
 
-            // 6. 自动轮播也从 startPos 开始
             runnable = object : Runnable {
                 override fun run() {
-                    // 下一个位置，注意这里 +1 后会继续在 Int.MAX_VALUE 的范围内
                     val next = vp.currentItem + 1
                     vp.setCurrentItem(next, true)
                     handler.postDelayed(this, 5000)
@@ -97,13 +87,57 @@ class VideoAdapter(
             handler.postDelayed(runnable!!, 5000)
         }
 
+        /**
+         * 停止自动滚动
+         */
         fun stopAutoScroll() {
             runnable?.let { handler.removeCallbacks(it) }
         }
 
-        // 以下 addPoints/changePoints 不变……
-        private fun addPoints(count: Int) { /* … */ }
-        private fun changePoints(idx: Int) { /* … */ }
+        /**
+         * 动态添加小圆点
+         */
+        private fun addPoints(count: Int) {
+            binding.pointContainer.removeAllViews() // 清空之前的小圆点
+            for (i in 0 until count) {
+                val pointIv = ImageView(binding.root.context)
+                pointIv.setPadding(2, 2, 2, 2)  // 调整小圆点的内边距
+
+                // 设置小圆点的大小，减小原来值
+                val params = LinearLayout.LayoutParams(8.dpToPx(), 8.dpToPx())  // 调整为更小的 8dp
+                pointIv.layoutParams = params
+
+                // 设置第一个小圆点为灰色，其他为白色
+                if (i == 0) {
+                    pointIv.setImageResource(R.drawable.point_white) // 设置白色圆点
+                } else {
+                    pointIv.setImageResource(R.drawable.point_grey) // 设置灰色圆点
+                }
+
+                binding.pointContainer.addView(pointIv)
+            }
+        }
+
+
+        /**
+         * 更新小圆点的选中状态
+         */
+        private fun changePoints(position: Int) {
+            val childCount = binding.pointContainer.childCount
+            for (i in 0 until childCount) {
+                val pointIv = binding.pointContainer.getChildAt(i) as ImageView
+                if (i == position) {
+                    pointIv.setImageResource(R.drawable.point_white) // 选中的圆点为灰色
+                } else {
+                    pointIv.setImageResource(R.drawable.point_grey) // 未选中的圆点为白色
+                }
+            }
+        }
+
+        private fun Int.dpToPx(): Int {
+            val density = binding.root.context.resources.displayMetrics.density
+            return (this * density).toInt()
+        }
     }
 
 

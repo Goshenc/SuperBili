@@ -1,4 +1,4 @@
-package com.example.superbili
+package com.example.superbili.Activities
 
 import android.app.Activity
 import android.content.Intent
@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.superbili.R
 import com.example.superbili.databinding.ActivityMyBinding
 
 class MyActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class MyActivity : AppCompatActivity() {
             insets
         }
         binding.homePage.setOnClickListener(){
-            val intent=Intent(this,MainActivity::class.java)
+            val intent=Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
             overridePendingTransition(0, 0)
@@ -37,7 +38,7 @@ class MyActivity : AppCompatActivity() {
                   }
 
         binding.myCollection.setOnClickListener(){
-            val intent=Intent(this,CollectActivity::class.java)
+            val intent=Intent(this, CollectActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             launcher.launch(intent)
         }

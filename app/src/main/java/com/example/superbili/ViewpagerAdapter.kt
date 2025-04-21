@@ -2,10 +2,9 @@ package com.example.superbili
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.superbili.Activities.DetailActivity
 import com.example.superbili.databinding.ItemImageBinding
 
 class ViewpagerAdapter(private val imageList: List<video>) :

@@ -1,4 +1,4 @@
-package com.example.superbili
+package com.example.superbili.Activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,9 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.superbili.SearchAdapter
 import com.example.superbili.databinding.ActivitySearchresultBinding
+import com.example.superbili.video
 
 class SearchresultActivity : AppCompatActivity() {
     private lateinit var adapter: SearchAdapter

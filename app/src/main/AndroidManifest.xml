@@ -13,23 +13,26 @@
         android:theme="@style/Theme.SuperBili"
         tools:targetApi="31">
         <activity
-            android:name=".SearchresultActivity"
+            android:name=".Activities.CollectionDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".Activities.CollectActivity"
             android:exported="false" />
         <activity
-            android:name=".CollectActivity"
+            android:name=".Activities.SearchresultActivity"
             android:exported="false" />
         <activity
-            android:name=".MyActivity"
+            android:name=".Activities.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".Activities.MyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.DetailActivity"
             android:exported="false"
-            android:theme="@style/DetailActivityStyle"/>
+            android:theme="@style/DetailActivityStyle" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

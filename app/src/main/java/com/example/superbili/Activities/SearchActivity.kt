@@ -1,4 +1,4 @@
-package com.example.superbili
+package com.example.superbili.Activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.superbili.R
 import com.example.superbili.databinding.ActivitySearchBinding
 
 class SearchActivity : AppCompatActivity() {
