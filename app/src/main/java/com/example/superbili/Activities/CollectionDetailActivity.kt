@@ -7,10 +7,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.superbili.InCollectionVideoAdapter
+import com.example.superbili.Adapter.InCollectionVideoAdapter
 import com.example.superbili.R
 import com.example.superbili.Room.AppDatabase
-import com.example.superbili.VideoAdapter
 import com.example.superbili.databinding.ActivityCollectionDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

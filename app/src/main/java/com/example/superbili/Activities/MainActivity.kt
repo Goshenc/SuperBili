@@ -15,6 +15,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -27,9 +28,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.superbili.R
 import com.example.superbili.Room.AppDatabase
 import com.example.superbili.Room.MyCollection
-import com.example.superbili.VideoAdapter
-import com.example.superbili.VideoItemDecoration
-import com.example.superbili.ViewpagerAdapter
+import com.example.superbili.Adapter.VideoAdapter
+import com.example.superbili.Utils.VideoItemDecoration
+import com.example.superbili.Adapter.ViewpagerAdapter
 import com.example.superbili.databinding.ActivityMainBinding
 import com.example.superbili.video
 import kotlinx.coroutines.Dispatchers
@@ -115,16 +116,25 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        binding.navHyg.setOnClickListener {
+            val intent=Intent(this, HygActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            launcher.launch(intent)
+            overridePendingTransition(0, 0)
+        }
 
-
+        binding.navUpdata.setOnClickListener {
+            val intent=Intent(this, UpdataActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            launcher.launch(intent)
+            overridePendingTransition(0, 0)
+        }
         setupDatabase()
         setupSearchView()  // Now works fine as it's a member function
-
 
         initVideos()  // Now works fine as it's a member function
         val layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.addItemDecoration(VideoItemDecoration())
-
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (position == 0) 2 else 1

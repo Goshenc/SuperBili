@@ -1,4 +1,4 @@
-package com.example.superbili
+package com.example.superbili.Adapter
 
 import android.content.Context
 import android.content.Intent
@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.superbili.Activities.DetailActivity
+import com.example.superbili.R
 import com.example.superbili.databinding.ItemBannerBinding
 
 import com.example.superbili.databinding.VideoItemBinding
+import com.example.superbili.video
 
 class VideoAdapter(
     val context: Context,

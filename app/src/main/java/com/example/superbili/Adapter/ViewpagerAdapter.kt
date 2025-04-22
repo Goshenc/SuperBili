@@ -1,4 +1,4 @@
-package com.example.superbili
+package com.example.superbili.Adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superbili.Activities.DetailActivity
 import com.example.superbili.databinding.ItemImageBinding
+import com.example.superbili.video
 
 class ViewpagerAdapter(private val imageList: List<video>) :
     RecyclerView.Adapter<ViewpagerAdapter.ImageViewHolder>() {

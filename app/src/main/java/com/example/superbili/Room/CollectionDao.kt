@@ -1,6 +1,7 @@
 package com.example.superbili.Room
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Embedded
 import androidx.room.Insert
 import androidx.room.Junction
@@ -23,7 +24,8 @@ interface CollectionDao {
     // 添加视频到收藏夹
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addVideoToCollection(ref: CollectionVideoCrossRef)
-
+    @Delete
+    suspend fun deleteCollection(collection: MyCollection)
     // 获取指定收藏夹内的视频
     @Transaction
     @Query("SELECT * FROM MyCollection WHERE collectionId = :id")

@@ -1,4 +1,4 @@
-package com.example.superbili
+package com.example.superbili.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

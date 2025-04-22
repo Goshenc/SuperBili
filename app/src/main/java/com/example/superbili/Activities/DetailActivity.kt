@@ -1,18 +1,23 @@
 package com.example.superbili.Activities
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.TouchDelegate
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.superbili.Adapter.CollectionAdapter
 import com.example.superbili.R
 import com.example.superbili.Room.AppDatabase
 import com.example.superbili.Room.CollectionVideoCrossRef
@@ -22,6 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
@@ -33,7 +39,7 @@ class DetailActivity : AppCompatActivity() {
     // DAO
     private val collDao by lazy { AppDatabase.getInstance(applicationContext).collectionDao() }
     private val vidDao  by lazy { AppDatabase.getInstance(applicationContext).videoDao() }
-
+    private lateinit var video: VideoEntity
     // 当前是否已收藏
     private var isCollected = false
     // 默认收藏夹名字
@@ -63,7 +69,7 @@ class DetailActivity : AppCompatActivity() {
         val upName     = intent.getStringExtra("upName")     ?: ""
 
         //—— 构造 VideoEntity
-        val video = VideoEntity(
+         video = VideoEntity(
             imageId    = imageId,
             viewNumber = viewNumber,
             danmuNumber= danmuNumber,
@@ -207,24 +213,88 @@ class DetailActivity : AppCompatActivity() {
     }
     private fun showCollectionSheet() {
         val dialog = BottomSheetDialog(this)
-        // 假设你有一个 layout 文件 bottom_sheet_collection.xml，里面就是你要展示的内容
+        // 假设你已有一个 bottom_sheet_collection.xml
         val sheet = layoutInflater.inflate(R.layout.bottom_sheet_collection, null)
         dialog.setContentView(sheet)
-        // 拿到它的容器，设置 Behavior
+
+
+
+        dialog.window?.setDimAmount(0.4f)
+        val btnCreateFolder = sheet.findViewById<Button>(R.id.btnCreateFolder)
+        btnCreateFolder.setOnClickListener {
+            dialog.dismiss()  // 先关闭 BottomSheet
+            val intent = Intent(this, CreateFolderActivity::class.java)
+            startActivity(intent)
+        }
+        // 拿到底部弹窗的 container
         val container = dialog.findViewById<FrameLayout>(
             com.google.android.material.R.id.design_bottom_sheet
         )!!
-        val behavior = BottomSheetBehavior.from(container)
+
+        // **1. 把 container 高度撑满屏幕**，才能支持全屏展开
         val screenHeight = resources.displayMetrics.heightPixels
-        behavior.peekHeight = screenHeight / 3           // 初始高度 1/3 屏幕
-        behavior.isHideable = false                      // 不允许完全隐藏
-        behavior.isFitToContents = false                 // 让 expandedOffset 生效
-        behavior.skipCollapsed = false
-        behavior.expandedOffset = 0                      // 拖到底部就是全屏
-        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        container.layoutParams.height = screenHeight
+        container.requestLayout()
+
+        // **2. 配置 BottomSheetBehavior**
+        val behavior = BottomSheetBehavior.from(container).apply {
+            // 折叠时只露出 1/3 屏幕
+            peekHeight = screenHeight / 3
+            // 禁止完全隐藏
+            isHideable = false
+            // 禁用 fitToContents，使 expandedOffset 生效
+            isFitToContents = false
+            // 允许从折叠态滑动
+            skipCollapsed = false
+            // 展开时顶部无偏移（即占满屏幕）
+            expandedOffset = 0
+            // 一开始处于折叠态
+            state = BottomSheetBehavior.STATE_COLLAPSED
+        }
 
         dialog.show()
-    }
+
+        val recycler = sheet.findViewById<RecyclerView>(R.id.sheetRecyclerView)
+        recycler.layoutManager = LinearLayoutManager(this)
+
+        lifecycleScope.launch {
+            // Collect the flow and get the data
+            val allFolders = collDao.getAllCollections().first() // Collect the first value of the Flow
+
+            // Create Adapter and submit the list
+            val adapter = CollectionAdapter { selected ->
+                lifecycleScope.launch {
+                    // 1. 确保视频已入库
+                    val existingId = withContext(Dispatchers.IO) {
+                        vidDao.getVideoIdByTitleAndUp(video.title, video.upName)
+                    }
+                    val videoId = existingId?.toLong() ?: withContext(Dispatchers.IO) {
+                        vidDao.insert(video)
+                    }
+
+                    // 2. 收藏进所选收藏夹
+                    val ref = CollectionVideoCrossRef(selected.collectionId, videoId)
+                    withContext(Dispatchers.IO) {
+                        collDao.addVideoToCollection(ref)
+                    }
+
+                    // 3. 提示 + 关闭弹窗
+                    Snackbar.make(binding.main, "已添加到收藏夹：${selected.name}", Snackbar.LENGTH_SHORT).show()
+                    dialog.dismiss()
+
+                    // 4. 更新收藏状态 & 图标（可选）
+                    isCollected = true
+                    binding.collect.setImageResource(R.drawable.detailcollect)
+                }
+            }
+
+            adapter.submitList(allFolders)
+            recycler.adapter = adapter
+        }
+
+
+}
+
 
 
 

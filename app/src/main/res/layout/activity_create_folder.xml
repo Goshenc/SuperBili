@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.CreateFolderActivity"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/editTextFolderName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入收藏夹名称" />
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="创建" />
+
+
+</LinearLayout>

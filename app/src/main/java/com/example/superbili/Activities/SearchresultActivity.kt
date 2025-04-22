@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.superbili.SearchAdapter
+import com.example.superbili.Adapter.SearchAdapter
 import com.example.superbili.databinding.ActivitySearchresultBinding
 import com.example.superbili.video
 

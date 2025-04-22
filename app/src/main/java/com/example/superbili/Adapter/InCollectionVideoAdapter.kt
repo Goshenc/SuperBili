@@ -1,4 +1,4 @@
-package com.example.superbili
+package com.example.superbili.Adapter
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.superbili.Activities.DetailActivity
+import com.example.superbili.Room.VideoEntity
 import com.example.superbili.databinding.SearchItemBinding
 
-class SearchAdapter (val context: Context, val videoList:MutableList<video>): RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class InCollectionVideoAdapter (     private val context: Context,    // 传递 Context
+                                     private val videoList: List<VideoEntity>): RecyclerView.Adapter<InCollectionVideoAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: SearchItemBinding) : RecyclerView.ViewHolder(binding.root)
 
 
@@ -42,10 +44,6 @@ class SearchAdapter (val context: Context, val videoList:MutableList<video>): Re
     }
 
     override fun getItemCount() = videoList.size
-    fun updateData(newList: List<video>) {
-        videoList.clear()
-        videoList.addAll(newList)
-        notifyDataSetChanged()
-    }
+
 
 }

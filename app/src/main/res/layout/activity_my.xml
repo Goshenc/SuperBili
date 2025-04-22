@@ -1,34 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MyActivity"
-    android:orientation="vertical"
     android:background="@color/white">
+
+    <!-- 背景图，铺满全屏 -->
+
+    <!-- 底部左侧小图标 -->
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/myall"/>
+        android:id="@+id/bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/myall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <!-- 相对于父容器中心偏右偏下的图标 -->
+
     <ImageView
         android:id="@+id/homePage"
-        android:translationZ="1dp"
-        android:layout_gravity="bottom"
         android:layout_width="42dp"
         android:layout_height="42dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="4dp"
         android:src="@drawable/homepageun"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="2dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
-        android:translationZ="1dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="265dp"
         android:id="@+id/myCollection"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/mymycollection"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintVertical_bias="0.335" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
