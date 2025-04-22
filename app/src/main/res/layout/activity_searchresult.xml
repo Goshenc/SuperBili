@@ -28,7 +28,7 @@
             android:id="@+id/etSearch"
             android:layout_width="300dp"
             android:layout_height="35dp"
-            android:textColor="@color/gray_darker"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:hint="番剧 / 影视 / UP主"
             android:textColorHint="@color/gray_darker"

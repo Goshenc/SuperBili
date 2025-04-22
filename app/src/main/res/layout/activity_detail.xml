@@ -1,237 +1,296 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Activities.DetailActivity"
-    android:orientation="vertical"
-    android:background="@color/white">
+    >
 
+    <!-- 1. 视频封面图 -->
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
         android:id="@+id/videoImage"
-        android:background="@color/black"/>
+        android:layout_width="0dp"
+        android:layout_height="230dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:background="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <LinearLayout
+    <!-- 2. Tab Row（简介 / 评论 / 弹幕按钮） -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/row1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:orientation="horizontal"
         android:background="@drawable/border_row1"
-        android:outlineProvider="background"
-        android:clipToOutline="true">
+        app:layout_constraintTop_toBottomOf="@id/videoImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- 简介 -->
         <TextView
-            android:layout_width="30dp"
-            android:layout_height="40dp"
+            android:id="@+id/tvIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="简介"
             android:textColor="@color/pink"
-            android:gravity="center"
-            android:layout_marginStart="30dp" />
+            android:layout_marginStart="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <!-- 评论 -->
         <TextView
-            android:layout_width="30dp"
-            android:layout_height="40dp"
+            android:id="@+id/tvComment"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="评论"
+            android:textColor="@color/gray"
             android:layout_marginStart="50dp"
-            android:textColor="@color/gray" />
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            app:layout_constraintStart_toEndOf="@id/tvIntro"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- 弹幕开关图标 -->
         <ImageView
+            android:id="@+id/ivDanmuBox"
             android:layout_width="150dp"
             android:layout_height="38dp"
             android:src="@drawable/detaildanmubox"
-        />
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 外层水平布局 -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- 3. UP 主信息行 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/row2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/row1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- 头像 -->
         <ImageView
+            android:id="@+id/avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/avatar" />
+            android:src="@drawable/avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <!-- 内部垂直布局 -->
-        <LinearLayout
+        <!-- UP 主名称 -->
+        <TextView
+            android:id="@+id/upName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintTop_toTopOf="@id/avatar"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:padding="0dp"
-                android:layout_marginTop="1dp"
-                android:id="@+id/upName" />
-
-            <!-- 水平布局（粉丝数和视频数） -->
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="0dp"
-android:layout_marginTop="3dp"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
-                    android:id="@+id/fansNumber"
-                    android:padding="0dp"
-                    android:textSize="12sp"
-
-                    />
-
-                <TextView
-                    android:layout_marginStart="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
-                    android:id="@+id/videoNumber"
-                    android:padding="0dp"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-        </LinearLayout> <!-- 内部垂直布局闭合 -->
-
-        <Space
-            android:layout_width="0dp"
+        <!-- 粉丝数 -->
+        <TextView
+            android:id="@+id/fansNumber"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toStartOf="@id/upName"
+            app:layout_constraintTop_toBottomOf="@id/upName"/>
 
+        <!-- 视频数 -->
+        <TextView
+            android:id="@+id/videoNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/fansNumber"
+            app:layout_constraintBaseline_toBaselineOf="@id/fansNumber"/>
+
+        <!-- 关注按钮 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/subscribe"
-            android:layout_marginEnd="10dp"
             android:layout_width="80dp"
             android:layout_height="35dp"
+            android:layout_marginEnd="10dp"
             android:backgroundTint="@color/pink"
             android:padding="0dp"
             android:text="+ 关注"
-            android:textColor="@color/white" />
-    </LinearLayout> <!-- 外层水平布局闭合 -->
-    <LinearLayout
-        android:layout_width="match_parent"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            app:layout_constraintBottom_toBottomOf="@id/avatar"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 4. 标题行 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/titleRow"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="13dp">
-    <TextView
-        android:layout_marginStart="11dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:id="@+id/title"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        />
-        <Space
-            android:layout_width="0dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@id/row2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 标题 -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    <ImageView
-        android:translationZ="1dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="1dp"
-        android:layout_width="17dp"
-        android:layout_height="17dp"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:src="@drawable/detaildown"/>
-    </LinearLayout>
-    <LinearLayout
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="11dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- 下拉箭头 -->
+        <ImageView
+            android:id="@+id/detailDown"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@drawable/detaildown"
+            android:layout_marginEnd="15dp"
+            android:translationZ="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 5. 信息统计行 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lastRow"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="-20dp"
-        >
-<ImageView
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    android:layout_marginBottom="1dp"
-    android:src="@drawable/searchresultmainsee"/>
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@id/titleRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 观看数图标 -->
+        <ImageView
+            android:id="@+id/seeIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/searchresultmainsee"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- 观看数 -->
         <TextView
             android:id="@+id/viewNumber"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:textColor="@color/gray"
-            android:gravity="center_vertical"
-            android:textSize="12sp"/>
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
 
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toEndOf="@id/seeIcon"
+
+            app:layout_constraintTop_toTopOf="@id/seeIcon"
+            app:layout_constraintBottom_toBottomOf="@id/seeIcon"
+            app:layout_constraintVertical_bias="0.5"/>
+
+
+
+        <!-- 评论图标 -->
         <ImageView
-            android:layout_marginStart="5dp"
+            android:id="@+id/icon_comment"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:src="@drawable/maincomment"/>
+            android:layout_marginStart="5dp"
+            android:src="@drawable/maincomment"
+            app:layout_constraintStart_toEndOf="@id/viewNumber"
+            app:layout_constraintBaseline_toBaselineOf="@id/viewNumber"/>
+
+        <!-- 弹幕数 -->
         <TextView
-            android:layout_marginStart="4dp"
             android:id="@+id/danmuNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:textSize="12sp"/>
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/icon_comment"
+            app:layout_constraintBaseline_toBaselineOf="@id/icon_comment"/>
+
+        <!-- 日期 -->
+        <TextView
             android:id="@+id/data"
-            android:textColor="@color/gray"
-            />
-        <TextView
-            android:layout_marginStart="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:textSize="12sp"
-            android:id="@+id/time"/>
-        <ImageView
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/danmuNumber"
+            app:layout_constraintBaseline_toBaselineOf="@id/danmuNumber"/>
+
+        <!-- 时间 -->
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
             android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/data"
+            app:layout_constraintBaseline_toBaselineOf="@id/data"/>
+
+        <!-- 观看动画图标 -->
+        <ImageView
+            android:id="@+id/detailWatching"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/detailwatching"/>
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/time"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
-    <FrameLayout
-        android:layout_width="wrap_content"
+    <!-- 6. 折叠按钮组（利用 translationY 叠加） -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toggleRow"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-     >
+        app:layout_constraintTop_toBottomOf="@id/lastRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- 折叠指示图标，向上浮动 30dp -->
         <ImageView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/ivToggle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/detailrowun"
-            android:layout_marginTop="-30dp"
-            />
+            android:translationY="-30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- 收藏图标，浮动叠加在右侧 -->
+        <!-- 收藏图标，浮动叠加在右侧 -->
         <ImageView
-            android:translationZ="100dp"
             android:id="@+id/collect"
-            android:layout_marginTop="-20dp"
-            android:layout_marginLeft="267dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/detailcollectun" />
-    </FrameLayout>
+            android:src="@drawable/detailcollectun"
+            android:translationY="-20dp"
+            app:layout_constraintTop_toTopOf="@id/ivToggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="113dp" />
 
-</LinearLayout> <!-- 最外层垂直布局闭合 -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
