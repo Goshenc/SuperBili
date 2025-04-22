@@ -3,13 +3,19 @@
     <style name="Base.Theme.SuperBili" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
     </style>
 
     <style name="Theme.SuperBili" parent="Base.Theme.SuperBili" />
 
 
 
-
+    <style name="Theme.CreateFolder" parent="Base.Theme.SuperBili">
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimaryVariant">@android:color/white</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/black</item>  <!-- 确保文字颜色为黑色 -->
+    </style>
 
     <style name="CustomSearchViewStyle">
         <item name="android:background">@android:color/transparent</item>

@@ -20,10 +20,9 @@
             android:exported="false" />
         <activity
             android:name=".Activities.CreateFolderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.CreateFolder"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.CreateFolder"/>
+
         <activity
             android:name=".Activities.CollectionDetailActivity"
             android:exported="false" />

@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,7 +22,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -111,6 +114,26 @@ class MainActivity : AppCompatActivity() {
             view.setPadding(view.paddingLeft, statusBarHeight-20 , view.paddingRight, view.paddingBottom)
             insets
         }
+        //获取底部手势栏高度，得到高度多少就把bottonRow向上推多少？
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomRow) { view, insets ->
+            // 只取导航栏的高度
+            val navBarInset = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+
+            // 方法 A：通过修改 margin 把整个 View 往上推
+            (view.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                bottomMargin = navBarInset
+            }.also { view.layoutParams = it }
+
+            // 方法 B：或者更直接地用 translationY
+            // view.translationY = -navBarInset.toFloat()
+
+            // 一定要返回 insets
+            insets
+        }
+        //把底部手势栏背景颜色改成白色
+        window.navigationBarColor = ContextCompat.getColor(this, android.R.color.white)
+// 底部手势栏图标也要变黑
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightNavigationBars = true
 
 
 
@@ -201,25 +224,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+// 关闭系统默认 fitsSystemWindows，否则 Insets 不会回调给你的 View
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+// 监听 navigation bar inset
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomRow) { view, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            val display = (this@MainActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics
-            val screenHeight = display.bounds.height()
 
-            // 判断是否存在物理导航键
-            val hasPhysicalNav = (systemBars.bottom > 0 &&
-                    systemBars.bottom != ViewCompat.getRootWindowInsets(view)?.getInsets(WindowInsetsCompat.Type.displayCutout())?.bottom)
+// 主动申请一次 Insets 回调
+        binding.bottomRow.requestApplyInsets()
 
-            if (hasPhysicalNav) {
-                // 物理导航键设备：添加底部内边距
-                view.updatePadding(bottom = systemBars.bottom)
-            } else {
-                // 手势导航设备：不添加内边距（或自定义手势条高度）
-                view.updatePadding(bottom = 0)
-            }
-            insets
-        }
+
+        binding.bottomRow.requestApplyInsets()
+
+
         binding.navMine.setOnClickListener(){
             val intent=Intent(this, MyActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)

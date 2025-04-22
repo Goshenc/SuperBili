@@ -197,7 +197,7 @@
     <LinearLayout
         android:id="@+id/bottomRow"
         android:layout_width="match_parent"
-        android:layout_height="63dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/white"
         android:layout_gravity="bottom"
