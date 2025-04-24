@@ -70,6 +70,11 @@ lateinit var binding:ActivityCreateFolderBinding
 
             }
         }
+            binding.back.setOnClickListener(){
+                finish()
+            }
+
+
 
     }//onCreate end
 }
