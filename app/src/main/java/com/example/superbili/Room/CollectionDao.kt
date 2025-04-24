@@ -53,7 +53,13 @@ interface CollectionDao {
     @Query("DELETE FROM CollectionVideoCrossRef WHERE collectionId = :collectionId AND videoId = :videoId")
     suspend fun removeVideoFromCollection(collectionId: Long, videoId: Long)
 
+    /** 按名字删除一个收藏夹 */
+    @Query("DELETE FROM MyCollection WHERE name = :name")
+    suspend fun deleteCollectionByName(name: String)
 
+    // 若要连带把对应关系也删干净，保证外键约束或手动先删交叉表：
+    @Query("DELETE FROM CollectionVideoCrossRef WHERE collectionId = :collectionId")
+    suspend fun deleteRefsByCollectionId(collectionId: Long)
 
 
 

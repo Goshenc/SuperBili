@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivThumbnail"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCornerImage" />
+
+    <TextView
+        android:id="@+id/tvChild"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:inputType="textMultiLine"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+        app:layout_constraintEnd_toStartOf="@id/more"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/more"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+    <ImageView
+        app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+        app:layout_constraintBottom_toTopOf="@id/mainSee"
+        android:layout_marginStart="7dp"
+
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/up"
+        android:id="@+id/upImage"
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="22dp"
+        android:src="@drawable/searchresultmainsee"
+        android:id="@+id/mainSee"
+
+        android:layout_marginTop="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivThumbnail"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/gray"
+    android:textSize="12sp"
+    app:layout_constraintStart_toEndOf="@id/upImage"
+    app:layout_constraintTop_toTopOf="@+id/upImage"
+    app:layout_constraintBottom_toBottomOf="@+id/upImage"
+    android:id="@+id/upName"
+    android:layout_marginStart="3dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toEndOf="@+id/mainSee"
+        app:layout_constraintTop_toTopOf="@+id/mainSee"
+        app:layout_constraintBottom_toBottomOf="@+id/mainSee"
+        android:id="@+id/viewNumber"
+        android:textSize="12sp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
