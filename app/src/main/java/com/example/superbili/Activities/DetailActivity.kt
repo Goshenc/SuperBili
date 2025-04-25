@@ -11,13 +11,19 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.superbili.Activities.MainActivity.Companion.videos
 import com.example.superbili.Adapter.CollectionAdapter
+import com.example.superbili.Adapter.CollectionAdapter2
+import com.example.superbili.Adapter.DetailAdapter
+import com.example.superbili.Adapter.SearchAdapter
 import com.example.superbili.R
 import com.example.superbili.Room.AppDatabase
 import com.example.superbili.Room.CollectionVideoCrossRef
@@ -35,7 +41,7 @@ import java.time.format.DateTimeFormatter
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-
+    private lateinit var adapter: DetailAdapter
     // DAO
     private val collDao by lazy { AppDatabase.getInstance(applicationContext).collectionDao() }
     private val vidDao  by lazy { AppDatabase.getInstance(applicationContext).videoDao() }
@@ -199,7 +205,13 @@ class DetailActivity : AppCompatActivity() {
                 isCollected = !isCollected
             }
         }
-    }
+
+
+        adapter = DetailAdapter(this, videos)
+        binding.detailRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.detailRecyclerView.adapter = adapter
+
+    }//onCreate end
 
     private fun dpToPx(dp: Int): Int =
         (dp * resources.displayMetrics.density).toInt()
@@ -214,13 +226,13 @@ class DetailActivity : AppCompatActivity() {
     private fun showCollectionSheet() {
         val dialog = BottomSheetDialog(this)
         // 假设你已有一个 bottom_sheet_collection.xml
-        val sheet = layoutInflater.inflate(R.layout.bottom_sheet_collection, null)
+        val sheet = layoutInflater.inflate(R.layout.bottom_sheet_collection, null)//66666666666666666666666666666666666666666666666
         dialog.setContentView(sheet)
 
 
 
         dialog.window?.setDimAmount(0.4f)
-        val btnCreateFolder = sheet.findViewById<Button>(R.id.btnCreateFolder)
+        val btnCreateFolder = sheet.findViewById<TextView>(R.id.btnCreateFolder)
         btnCreateFolder.setOnClickListener {
             dialog.dismiss()  // 先关闭 BottomSheet
             val intent = Intent(this, CreateFolderActivity::class.java)
@@ -256,6 +268,10 @@ class DetailActivity : AppCompatActivity() {
 
         val recycler = sheet.findViewById<RecyclerView>(R.id.sheetRecyclerView)
         recycler.layoutManager = LinearLayoutManager(this)
+        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+// 给分割线设置自定义 drawable
+        ContextCompat.getDrawable(this, R.drawable.divider_gray)?.let { divider.setDrawable(it) }
+        recycler.addItemDecoration(divider)
 
         lifecycleScope.launch {
             // Collect the flow and get the data

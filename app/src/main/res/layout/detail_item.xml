@@ -57,16 +57,16 @@
         android:layout_marginTop="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivThumbnail"/>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/gray"
-    android:textSize="12sp"
-    app:layout_constraintStart_toEndOf="@id/upImage"
-    app:layout_constraintTop_toTopOf="@+id/upImage"
-    app:layout_constraintBottom_toBottomOf="@+id/upImage"
-    android:id="@+id/upName"
-    android:layout_marginStart="3dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/upImage"
+        app:layout_constraintTop_toTopOf="@+id/upImage"
+        app:layout_constraintBottom_toBottomOf="@+id/upImage"
+        android:id="@+id/upName"
+        android:layout_marginStart="3dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

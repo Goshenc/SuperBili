@@ -33,8 +33,8 @@ class SearchresultActivity : AppCompatActivity() {
         val query = intent.getStringExtra("searchText").orEmpty()
        val searchtext=intent.getStringExtra("searchText")?:""
         binding.etSearch.setText(searchtext)
-        // 2. 过滤：注意用正确的属性名（下面假设你的 video 类里
-        //    定义的最后一个字段叫 uploaderName，如果你叫别的要改成你自己的）
+        // 过滤：注意用正确的属性名（下面假设你的 video 类里
+
         val resultsList = if (query.isBlank()) {
             mutableListOf<video>()  // 空结果
         } else {

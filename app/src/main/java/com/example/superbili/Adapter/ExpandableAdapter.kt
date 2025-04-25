@@ -82,15 +82,15 @@ class ExpandableAdapter(
         val more: ImageView = v.findViewById(R.id.groupMore)
         fun bind(g: ListItem.Group) {
             tv.text = "${g.title} · ${g.children.size}"
-            iv.rotation = if (g.isExpanded) 90f else 0f
+            iv.rotation = if (g.isExpanded) 180f else 0f//nb啊，展开就反转180度，666
         }
     }
 
 
     class ChildVH(v: View): RecyclerView.ViewHolder(v) {
-        val thumbnail: ImageView = v.findViewById(R.id.ivThumbnail)
+        val thumbnail = v.findViewById<ImageView>(R.id.ivThumbnail)
         private val tv = v.findViewById<TextView>(R.id.tvChild)
-        val more: ImageView = v.findViewById(R.id.more)
+        val more= v.findViewById<ImageView>(R.id.more)
         val upName=v.findViewById<TextView>(R.id.upName)
         val viewNumber=v.findViewById<TextView>(R.id.viewNumber)
         fun bind(c: ListItem.Child) {
