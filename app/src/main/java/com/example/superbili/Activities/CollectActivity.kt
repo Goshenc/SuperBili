@@ -148,26 +148,39 @@ class CollectActivity : AppCompatActivity() {
             }
 
             val groups = list.map { cwv ->
-                ListItem.Group(
-                    title = cwv.collection.name,
-                    children = cwv.videos.map { vid ->
+                // 先 map，再 distinctBy 去重，最后 toMutableList()
+                val children = cwv.videos
+                    .map { vid ->
                         ListItem.Child(
-                            videoId = vid.videoId.toLong(),
-                            imageId = vid.imageId,
-                            viewNumber = vid.viewNumber,
+                            videoId     = vid.videoId.toLong(),
+                            imageId     = vid.imageId,
+                            viewNumber  = vid.viewNumber,
                             danmuNumber = vid.danmuNumber,
-                            time = vid.time,
-                            title = vid.title ?: "无标题",
-                            upName = vid.upName
+                            time        = vid.time,
+                            title       = vid.title ?: "无标题",
+                            upName      = vid.upName
                         )
-                    }.toMutableList()
+                    }
+                    .distinctBy { it.videoId }  // ← 根据 videoId 去重
+                    .toMutableList()
+
+                ListItem.Group(
+                    title    = cwv.collection.name,
+                    children = children
                 )
-            }.toMutableList()
+            }
+                .onEach { group ->
+                    if (group.title == "默认收藏夹") {
+                        group.isExpanded = true
+                    }
+                }
+                .toMutableList()
 
             adapter.data = groups
             adapter.notifyDataSetChanged()
         }
     }
+
 
     private fun deleteCollection(collection: MyCollection) {
         if (collection.name == "默认收藏夹") {

@@ -44,10 +44,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ViewpagerAdapter
     private val viewpagerList= listOf(
-        video(R.drawable.sbv1,"2.3万","29","7:06","震惊全宇宙的超级无敌厉害的大师教程！！！","随便起个名"),
-        video(R.drawable.sbv2,"5.9万","66","5:36","起啥标题好呢","乡村教师日记"),
-        video(R.drawable.sbv3,"6120","3","1:16","杨戬教学","GoshenC"),
-        video(R.drawable.sbv4,"1008","112","0:23","吓死你","我是一个UP")
+        video(R.drawable.lbt1,"49.3万","789","6:06","666,好奇妙的知识","书下课"),
+        video(R.drawable.lbt2,"103.4万","821","4:12","一个厉害的男的在吃饭","陈子豪"),
+        video(R.drawable.lbt3,"74.8万","620","5:56","误导你的互联网常识","Nobody"),
+        video(R.drawable.lbt4,"60.9万","912","4:43","两男人打球","徐金玉")
     )
     companion object {
 
