@@ -1,2 +1,2 @@
 # SuperBili
-复核B站
+复刻B站
