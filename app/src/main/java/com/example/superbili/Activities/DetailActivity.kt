@@ -295,7 +295,26 @@ class DetailActivity : AppCompatActivity() {
                     }
 
                     // 3. 提示 + 关闭弹窗
-                    Snackbar.make(binding.main, "已添加到收藏夹：${selected.name}", Snackbar.LENGTH_SHORT).show()
+                    val sb = Snackbar.make(binding.main, "已添加到收藏夹:\"$folderName\"", Snackbar.LENGTH_LONG)
+
+                    sb.setActionTextColor(Color.parseColor("#FF4081"))
+                    val lay = sb.view as Snackbar.SnackbarLayout
+                    lay.background = GradientDrawable().apply {
+                        cornerRadius = dpToPx(15).toFloat()
+                        setColor(Color.WHITE)
+                    }
+                    val tv = lay.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                    tv.setTextColor(Color.BLACK)
+                    resources.getDrawable(R.drawable.snackbaricon, null).also {
+                        it.setBounds(0,0,dpToPx(21),dpToPx(21))
+                        tv.setCompoundDrawables(it,null,null,null)
+                        tv.compoundDrawablePadding = dpToPx(8)
+                    }
+                    sb.view.backgroundTintList = ColorStateList.valueOf(Color.WHITE)
+                    sb.show()
+
+
+
                     dialog.dismiss()
 
                     // 4. 更新收藏状态 & 图标（可选）
