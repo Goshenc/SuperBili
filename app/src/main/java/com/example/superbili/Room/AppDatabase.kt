@@ -14,7 +14,7 @@ import kotlinx.coroutines.runBlocking
         VideoEntity::class,       // 视频表
         CollectionVideoCrossRef::class // 关联表
     ],
-    version = 7
+    version = 9
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun collectionDao(): CollectionDao

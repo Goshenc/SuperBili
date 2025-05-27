@@ -1,5 +1,6 @@
 package com.example.superbili.Adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,11 +79,25 @@ class ExpandableAdapter(
 
     class GroupVH(v: View) : RecyclerView.ViewHolder(v) {
         private val tv = v.findViewById<TextView>(R.id.tvGroup)
-        private val iv = v.findViewById<ImageView>(R.id.ivArrow)
+        private val ivArrow = v.findViewById<ImageView>(R.id.ivArrow)
+        private val ivCover = v.findViewById<ImageView>(R.id.ivCover)      // ← 新增
         val more: ImageView = v.findViewById(R.id.groupMore)
+
         fun bind(g: ListItem.Group) {
+            // 标题 + 数量
             tv.text = "${g.title} · ${g.children.size}"
-            iv.rotation = if (g.isExpanded) 180f else 0f//nb啊，展开就反转180度，666
+            // 箭头旋转
+            ivArrow.rotation = if (g.isExpanded) 180f else 0f
+
+            // —— 绑定封面 ——
+            if (!g.coverUri.isNullOrEmpty()) {
+                // 本地 URI 或 网络 URL 都可
+                Glide.with(ivCover.context)
+                    .load(Uri.parse(g.coverUri))
+                    .into(ivCover)
+            } else {
+                // 没有自定义封面就用默认图
+            }
         }
     }
 

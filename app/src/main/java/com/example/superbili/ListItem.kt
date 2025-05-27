@@ -4,6 +4,7 @@ sealed class ListItem {
     data class Group(
         val title: String,
         val children: MutableList<Child>,
+        val coverUri: String?,
         var isExpanded: Boolean = false
     ) : ListItem()
 

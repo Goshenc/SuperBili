@@ -295,7 +295,7 @@ class DetailActivity : AppCompatActivity() {
                     }
 
                     // 3. 提示 + 关闭弹窗
-                    val sb = Snackbar.make(binding.main, "已添加到收藏夹:\"$folderName\"", Snackbar.LENGTH_LONG)
+                    val sb = Snackbar.make(binding.main, "已添加到收藏夹", Snackbar.LENGTH_LONG)
 
                     sb.setActionTextColor(Color.parseColor("#FF4081"))
                     val lay = sb.view as Snackbar.SnackbarLayout

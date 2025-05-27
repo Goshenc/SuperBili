@@ -11,7 +11,8 @@ import androidx.room.PrimaryKey
 )
 data class MyCollection(
     @PrimaryKey(autoGenerate = true) val collectionId: Long = 0,
-    val name: String
+    val name: String,
+    val coverUri: String? = null
 )
 
 // 视频表（存储视频基本信息）

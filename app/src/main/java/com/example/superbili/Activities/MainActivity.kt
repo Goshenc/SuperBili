@@ -135,7 +135,8 @@ class MainActivity : AppCompatActivity() {
 // 底部手势栏图标也要变黑
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightNavigationBars = true
 
-
+// 关闭系统默认 fitsSystemWindows，否则 Insets 不会回调给你的 View
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
 
 
@@ -224,8 +225,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-// 关闭系统默认 fitsSystemWindows，否则 Insets 不会回调给你的 View
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+
 // 监听 navigation bar inset
 
 

@@ -166,6 +166,7 @@ class CollectActivity : AppCompatActivity() {
 
                 ListItem.Group(
                     title    = cwv.collection.name,
+                    coverUri = cwv.collection.coverUri,
                     children = children
                 )
             }
